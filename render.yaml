@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: rnr-ai-cloud-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.11
+      - key: ADMIN_API_KEY
+        generateValue: true
+      - key: AGENT_SECRET
+        generateValue: true
+      - key: KEEPALIVE_SECRET
+        generateValue: true
+      - key: MODEL_NAME
+        value: qwen3.8-27b-uncensored-mtp
+      - key: MAX_INFLIGHT
+        value: "2"
